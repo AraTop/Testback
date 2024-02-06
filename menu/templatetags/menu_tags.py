@@ -10,14 +10,19 @@ def draw_menu(menu_name):
 
     rendered_menu = '<ul class="menu">'
     for item in menu_items:
-        rendered_menu += f'<li><a href="http://127.0.0.1:8000/item/{item.pk}/">{item.title}</a>'
+        if Menu.objects.filter(parent=item).exists():
+            rendered_menu += f'<details><summary><a href="http://127.0.0.1:8000/item/{item.pk}/">{item.title}</a></summary>'
+        else:
+            rendered_menu += f'<li><a href="http://127.0.0.1:8000/item/{item.pk}/">{item.title}</a></li>'
         # Ищем дочерние элементы текущего элемента меню
         children = Menu.objects.filter(parent=item)
         if children.exists():
             rendered_menu += '<ul class="submenu">'
             for child in children:
-                rendered_menu += f'<li><a href="http://127.0.0.1:8000/item/{child.pk}/">{child.title}</a></li>'
-
+                if Menu.objects.filter(parent=child).exists():
+                    rendered_menu += f'<details><summary><a href="http://127.0.0.1:8000/item/{child.pk}/">{child.title}</a></summary>'
+                else:
+                    rendered_menu += f'<li><a href="http://127.0.0.1:8000/item/{child.pk}/">{child.title}</a></li>'
                 children_two = Menu.objects.filter(parent=child)
                 if children_two.exists():
                     rendered_menu += '<ul class="submenu">'
