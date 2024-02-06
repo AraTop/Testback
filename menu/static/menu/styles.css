@@ -1,0 +1,34 @@
+.menu {
+   list-style: none;
+   padding: 0;
+}
+
+.menu > li {
+   margin-bottom: 10px; /* Промежуток между элементами меню */
+}
+
+.menu a {
+   text-decoration: none;
+   color: black;
+}
+
+.submenu {
+   position: relative;
+}
+
+.submenu::before {
+   content: '';
+   position: absolute;
+   top: -5px; /* Начало линии относительно верхнего края родительского элемента */
+   left: 10px; /* Начало линии относительно левого края родительского элемента */
+   border-left: 2px solid black; /* Стиль линии */
+   height: calc(100% + 10px); /* Длина линии (высота родительского элемента + промежуток) */
+}
+
+.submenu ul {
+   margin-top: 10px; /* Промежуток между родительским и дочерним меню */
+}
+
+.submenu li {
+   margin-bottom: 5px; /* Промежуток между элементами дочернего меню */
+}
